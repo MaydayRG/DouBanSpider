@@ -27,7 +27,6 @@ def book_spider(book_tag):
         #url='http://www.douban.com/tag/%E5%B0%8F%E8%AF%B4/book?start=0' # For Test
         url='http://www.douban.com/tag/'+ quote(book_tag)+'/book?start='+str(page_num*15)
         time.sleep(np.random.rand()*5)
-        
         #Last Version
         try:
             req = request.Request(url, headers=hds[page_num%len(hds)])
@@ -40,11 +39,12 @@ def book_spider(book_tag):
         ##Previous Version, IP is easy to be Forbidden
         #source_code = requests.get(url) 
         #plain_text = source_code.text  
-        
+
         soup = BeautifulSoup(plain_text)
+        print(soup.prettify())
         list_soup = soup.find('div', {'class': 'mod book-list'})
-        
-        try_times+=1;
+
+        try_times+=1
         if list_soup==None and try_times<200:
             continue
         elif list_soup==None or len(list_soup)<=1:
